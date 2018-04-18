@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+{% load material_form %}
+{% load staticfiles %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">  <!-- viewport="device screen"  width=device screen width scale =100% -->
+    <!-- Available on getbootstrap CND   -->
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+    <!-- Latest compiled and minified JavaScript -->
+      <script
+    src="https://code.jquery.com/jquery-3.2.1.js"
+    integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
+    crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.6/material.indigo-blue.min.css" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/login.css' %}" type="text/css">
+    {% include 'material/includes/material_css.html' %}
+    <script src="{% static 'material/js/jquery.js' %}"></script>
+    {% include 'material/includes/material_js.html' %}
+
+</head>
+<body>
+<div class="container-fluid" id="main1">
+    <div class="row" id="main2">
+        <div class="col-md-12" id="main">
+            <div class="col-md-4 col-md-push-4" id="form-div">
+            <form action="{% url 'SICS:index_login' %}" method="POST">
+                <h4>SICS</h4>
+                {% csrf_token %}
+                {% for m in messages %}
+                    <h6 class="text-danger">{{ m }}</h6>
+                {% endfor %}
+                {% form form=form %}{% endform %}
+                <button type="submit" name="submit" class="btn" id="login_button">Login</button>
+            </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,312 @@
+@import url('//fonts.googleapis.com/css?family=Roboto:300,400,500,700');
+*{
+    //border: 1px solid black;
+    font-family: 'Roboto', sans-serif;
+}
+
+html{
+    height: 100%;
+}
+
+body{
+    background-color: rgb(250,250,250);
+    height: 100%;
+}
+
+#nav-bar{
+    height: 48px;
+    background-color: #3b78e7;
+    vertical-align: middle;
+    text-align: left center;
+    padding: 10px;
+    color: #efff;
+    font-size: 18px;
+}
+#title{
+    margin: 0px auto;
+    display: inline-block;
+    line-height: 28px;
+}
+
+.card{
+    background: #fff;
+    border-radius: 2px;
+    display: inline-block;
+    height: 100px;
+    margin: 5px;
+    position: relative;
+}
+.card1{
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+  width: 98%;
+  margin-top: 10px;
+}
+.card1:hover{
+  box-shadow: 0 14px 28px rgba(0,0,0,.25), 0 10px 10px rgba(0,0,0,0.22);
+}
+.card2{
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,.23);
+}
+.card3{
+  max-height: 800px;
+}
+.img-circular{
+    border-radius: 50%;
+}
+.profile-image{
+    margin-left: 5px;
+    margin-top: -25px;
+    height: 40px;
+    width: 40px;
+}
+
+.sender-div{
+    margin-top: 5px;
+    display: inline-block;
+}
+
+
+.recipient-div{
+    margin-top: 5px;
+    display: inline-block;
+    z-index: 1000;
+}
+
+#recipient-list{
+    display: none;
+}
+
+.show{
+    display: block;
+}
+
+.options{
+    display: inline-block;
+    float: right;
+    margin: 10px;
+}
+
+.time{
+    float: right;
+    display: inline-block;
+    margin-top: 10px;
+    line-height: 30px;
+}
+
+.calendar-event-a{
+    color: #3b78e7;
+}
+
+.message_data{
+    margin-left: 40px;
+    padding: 10px;
+    background: #eee;
+    margin-right: 10px;
+}
+
+#chat-parent{
+    background: #fff;
+    border-radius: 2px;
+    display: inline-block;
+    height: 580px;
+    margin: 5px;
+    position: relative;
+    padding:0px;
+}
+
+.chat-nav-bar{
+    background: #3b78e7;
+    border-radius: 2px;
+    display: inline-block;
+    height: 48px;
+    position: relative;
+    padding: 10px;
+    width: 100%;
+}
+
+#chat-message-div {
+    background: #fff;
+    border-radius: 2px;
+    display: inline-block;
+    height: 580px;
+    margin: 5px;
+    position: relative;
+    padding:0px;
+}
+
+.friend-div{
+    border-bottom: 1px solid #eee;
+}
+
+#post-div{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 10px;
+    width: 98%;
+    background: #fff;
+    border-radius: 2px;
+    display: inline-block;
+    margin: 5px;
+    position: relative;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+}
+
+#post-info{
+    width: 90%;
+}
+
+#post-area{
+    width: 98%;
+    margin: 0px;
+}
+.friend-list{
+    width:650px;
+}
+
+#send{
+    float: right;
+}
+.last-message{
+    display: block;
+    margin: 5px;
+    margin-left: 50px;
+}
+
+.friend-info{
+    margin-top: 5px;
+    display: inline-block;
+}
+
+.notification{
+    float: right;
+    margin-right: 40px;
+    margin-top: 20px;
+}
+
+#chat-bar-title{
+    line-height: 28px;
+    color: #fff;
+    margin-left: 10px;
+    font-size: 16px;
+}
+
+#friend-name-chat-bar{
+    line-height: 28px;
+    color: #fff;
+    margin-left: 10px;
+    font-size: 16px;
+}
+
+#user-profile-photo{
+    display: inline-block;
+    height: 30px;
+    width: 30px;
+    padding: 0px;
+}
+
+#profile-div{
+    display: inline-block;
+    float: right;
+    padding: 5px;
+    margin: auto 0px;
+    margin-top: -10px;
+}
+#username-nav{
+    display: inline-block;
+    line-height: 28px;
+}
+#recipient-div
+{
+    width: 98%;
+}
+
+#search-icon{
+    display: inline-block;
+    line-height: 1;
+    color: #fff;
+}
+
+#search-div{
+    float: right;
+}
+
+#search{
+    width: 80%;
+    display: inline-block;
+    color: #fff;
+}
+
+#search::placeholder{
+    color: #fff;
+}
+#add_friend{
+    display: none;
+}
+#chat-area{
+    bottom: 0;
+    height: 92%;
+}
+#message-area{
+    height: 85%;
+    border-bottom: 1px solid #fff;
+    padding: 10px;
+    overflow-y: scroll;
+}
+.message{
+    background: #fff;
+    border-radius: 4px;
+    padding: 5px;
+    display: inline-block;
+    word-wrap: break-word;
+}
+.message-left{
+    max-width: 80%;
+    background: #CFD8DC;
+}
+.message-right{
+    text-align: right;
+    background: #3b78e7;
+    color: #fff;
+    display: inline-block;
+    max-width: 80%;
+    overflow: hidden;
+    float: right;
+}
+#message-input{
+    border-radius: 20px;
+    line-height: 30px;
+    padding-left: 10px;
+    background: #fff;
+    margin: 0px;
+    margin-top: 5px;
+    margin-right: 5px;
+}
+#message-input-area{
+    text-align: center;
+    vertical-align: middle;
+    background: #3b78e7;
+}
+
+.mess{
+    width: 100%;
+    display: block;
+    margin-bottom: 5px;
+    overflow: auto;
+}
+#message-div{
+    padding: 0px;
+    margin: 0px;
+}
+#send-message{
+    margin-top: -55px;
+    color: #3b78e7;
+    background: #fff;
+}
+#send-message:hover {
+    color: #fff;
+    background: #3b78e7;
+}
+#back_icon{
+    color: #fff;
+}

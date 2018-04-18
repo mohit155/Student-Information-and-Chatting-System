@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+{% load custom_filter %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Student Information System</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">  <!-- viewport="device screen"  width=device screen width scale =100% -->
+    <!-- Available on getbootstrap CND   -->
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <!-- Latest compiled and minified JavaScript -->
+      <script
+    src="https://code.jquery.com/jquery-3.2.1.js"
+    integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
+    crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="//storage.googleapis.com/code.getmdl.io/1.0.6/material.min.js"></script>
+    <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons" type="text/css">
+    <link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.6/material.indigo-blue.min.css" type="text/css">
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/chat_subdiv.css' %}" type="text/css">
+    <script>
+        function toggle_message_div(newname)
+        {
+            $("#chat-message-div").toggle("slide");
+            $("#chat-parent").toggle("slide");
+            {{ current_user|update_current_user:"newname" }}
+            return false;
+        }
+    </script>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-1 card2" id="chat-parent">
+                <div class="chat-nav-bar col-md-12">
+                    <span id="chat-bar-title">Chat</span>
+                    <div id="search-div">
+                        <form action="{% url 'SICS:index_friend' %}" method="post" >
+                            {% csrf_token %}
+                            <i class="mdl-textfield__icon material-icons" id="search-icon" >search</i>
+                            <input list="users" class="mdl-textfield__input" type="text" id="search" name="search_friend" placeholder="Search Friends" />
+                            <input type="submit" id="add_friend">
+                            <datalist id="users">
+                                {% for user in users %}
+                                    <option value="{{user}}">
+                                {% endfor %}
+                            </datalist>
+                        </form>
+                    </div>
+
+                </div>
+                {% for friend in friend_list %}
+                <div class="friend-div" onclick="toggle_message_div('{{ friend.userB }}')">
+                    <img class="img-circular profile-image" src="../../static/Files/back.jpg"/>
+                    <div class="friend-info">
+                        <span class="username">{{ friend.userB }}</span><br>
+                        <span class="user-id">@{{ friend.userB }}</span>
+                    </div>
+                    <span class="mdl-badge notification" data-badge="4"></span>
+                    <span class="last-message">Message</span>
+                </div>
+                {% endfor %}
+            </div>
+
+            <div class="col-md-12 card2" id="chat-message-div">
+                <div class="chat-nav-bar">
+                    <i id="back_icon" class="material-icons md-36" onclick="toggle_message_div('')" >arrow_back</i>
+                    <span id="friend-name-chat-bar">{{ current_user }}</span>
+                </div>
+                {% for i in k %}
+                <div class="message">
+                    vvv
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</body>
+</html>

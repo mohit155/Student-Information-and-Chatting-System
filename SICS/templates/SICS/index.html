@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+{% load custom_filter %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Student Information System</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">  <!-- viewport="device screen"  width=device screen width scale =100% -->
+    <!-- Available on getbootstrap CND   -->
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <!-- Latest compiled and minified JavaScript -->
+      <script
+    src="https://code.jquery.com/jquery-3.2.1.js"
+    integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
+    crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="//storage.googleapis.com/code.getmdl.io/1.0.6/material.min.js"></script>
+    <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons" type="text/css">
+    <link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.6/material.indigo-blue.min.css" type="text/css">
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
+    <!--<link href="https://afeld.github.io/emoji-css/emoji.css" rel="stylesheet">-->
+    <link rel="stylesheet" href="{% static 'css/index.css' %}" type="text/css">
+    <script>
+        $(document).ready(function() {
+            var objDiv = document.getElementById("message-area");
+            objDiv.scrollTop = objDiv.scrollHeight;
+        });
+    </script>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12 card2" id="nav-bar">
+                <span id="title" >Student Information System</span>
+                <div id="profile-div">
+                    <img class="img-circular" id="user-profile-photo" src="../../static/Files/back.jpg" onclick='document.getElementById("profile-menu").classList.toggle("show");' />
+                    <span id="username-nav" >{{ first_name }} {{ last_name }}</span>
+                    <button id="logout" class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent mdl-js-ripple-effect" onclick="location.href='/system/logout/'">
+                        Logout
+                    </button>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div id="post-div">
+                    <span>Post Information</span><br>
+                    <form action="{% url 'SICS:index_post' %}" method="post">
+                        {% csrf_token %}
+
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="recipient-div">
+                            <input class="mdl-textfield__input" type="text" id="recipients" name="recipient" />
+                            <label class="mdl-textfield__label" for="recipients">To:</label>
+                        </div>
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--bottom" id="post-area">
+                            <textarea class="mdl-textfield__input" rows="4" id="post" name="post" ></textarea>
+                            <label class="mdl-textfield__label" for="post">Write Something</label>
+                        </div>
+                        <button id="send" class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent mdl-js-ripple-effect">
+                            Send
+                        </button>
+                    </form>
+                </div>
+                <div id="information-div">
+                    {% for post in posts %}
+                    <div class="information card card1">
+                        <div class="message-info">
+                            <img class="img-circular profile-image" src="../../static/Files/back.jpg"/>
+                            <div class="sender-div">
+                                <span class="username">{{post.sender_first_name}} {{ post.sender_last_name }}</span><br>
+                                <span class="user-id">@{{ post.sender_username }}</span>
+                            </div>
+                            <!--
+                            <div class="recipient-div" onclick='document.getElementById("recipient-list").classList.toggle("show");'>
+                                <span>Username 2</span>
+                                <div id="recipient-list">
+                                    <ul>
+                                        <li>User group 1</li>
+                                        <li>User group 2</li>
+                                        <li>Username 3</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            -->
+                            <div class="options">
+                                <a class="calendar-event-a" href="https://calendar.google.com/calendar/r/eventedit?text=My+Custom+Event&dates=20180512T230000Z/20180513T030000Z&details=details&location=India" target="_blank"><i id="calendar_event" class="material-icons md-36" >event</i></a>
+                            </div>
+                            <div class="time">
+                                <span>{{post.time}}</span>
+                            </div>
+                        </div>
+                        <div class="message_data">
+                            {{post.data}}
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="col-md-4" id="chat-div">
+                {% if chat_friend == "" %}
+                <div class="col-md-12 card2" id="chat-parent">
+                    <div class="chat-nav-bar">
+                        <span id="chat-bar-title">Chat</span>
+                        <div id="search-div">
+                            <form action="{% url 'SICS:index_friend' %}" method="post" >
+                                {% csrf_token %}
+                                <i class="mdl-textfield__icon material-icons" id="search-icon" >search</i>
+                                <input list="users" class="mdl-textfield__input" type="text" id="search" name="search_friend" placeholder="Search Friends" />
+                                <input type="submit" id="add_friend">
+                                <datalist id="users">
+                                    {% for user in users %}
+                                        <option value="{{user}}">
+                                    {% endfor %}
+                                </datalist>
+                            </form>
+                        </div>
+                    </div>
+                    {% for friend in friend_list %}
+                    <div class="friend-div" onclick="location.href='/system/index.html?friend={% if friend.userB == username %}{{friend.userA}}{% else %}{{ friend.userB }} {% endif %}'">
+                        <img class="img-circular profile-image" src="../../static/Files/back.jpg"/>
+                        <div class="friend-info">
+                            <span class="username">{% if friend.userB == username %}{{friend.userA}}{% else %}{{ friend.userB }} {% endif %}</span><br>
+                            <span class="user-id">@{% if friend.userB == username %}{{friend.userA}}{% else %}{{ friend.userB }} {% endif %}</span>
+                        </div>
+                        {% for key,value in notification.items %}
+                        {% if key == friend.userB or key == friend.userA %}
+                            <span class="mdl-badge notification" data-badge="{{ value }}"></span>
+                        {% endif %}
+                        {% endfor %}
+                        <span class="last-message">Message</span>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <div class="col-md-12 card2" id="chat-message-div">
+                    <div class="chat-nav-bar">
+                        <i id="back_icon" class="material-icons md-36" onclick="location.href='/system/index.html'">arrow_back</i>
+                        <span id="friend-name-chat-bar">{{ chat_friend }}</span>
+                    </div>
+                    <div id="chat-area">
+                        <div id="message-area">
+                            {% for message in user_messages %}
+                            {% if message.sender == username %}
+                            <div class="mess">
+                                <div class="message message-right">
+                                    {{ message.data|linebreaksbr }}<br>
+                                    {{ message.time }}
+                                </div>
+                            </div>
+                            {% else %}
+                            <div class="mess">
+                                <div class="message message-left">
+                                    {{ message.data|linebreaksbr }}<br>
+                                    {{ message.time }}
+                                </div>
+                            </div>
+                            {% endif %}
+                            {% endfor %}
+                        </div>
+                        <div id="message-input-area">
+                            <form action="{% url 'SICS:index_message' %}?friend={{ chat_friend }}" method="post" >
+                                {% csrf_token %}
+                                <div class="mdl-textfield mdl-js-textfield" id="message-div">
+                                    <textarea class="mdl-textfield__input" id="message-input" name="message-input" ></textarea>
+                                </div>
+                                <!--
+                                <button class="mdl-button mdl-js-button mdl-button--primary">
+                                  Button
+                                </button>-->
+                                <button type="submit" id="send-message" class="mdl-button mdl-js-button mdl-button--primary mdl-js-ripple-effect mdl-button--raised">
+                                    Send
+                                    <i id="play_arrow" class="material-icons md-36">play_arrow</i>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
